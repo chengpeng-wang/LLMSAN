@@ -1,101 +1,59 @@
-## How to Run
+# LLMSAN
 
-### Run LLMHalSpot and Baselines
+LLMSAN is a tool for analyzing Java projects using large language models (LLMs) for bug detection and sanitization. This repository includes scripts for running batch analyses, generating reports, and transforming Java projects for analysis.
 
-**One-model mode**:
+## Structure of the project
 
-```commandline
-cd src
-sh main_one_model.sh
-```
+TODO: Please help me list the directory structure in this project
 
-**Two-model mode**:
+## Use LLMSAN
 
-```commandline
-cd src
-sh main_two_models.sh
-```
+1. **Clone the repository**:
+   ```sh
+   git clone https://github.com/chengpeng-wang/LLMSAN.git
+   cd LLMSAN
+   ```
 
-**Baseline**: direct ask, CoT, and Self-Consistency
+2. Install the dependencies
 
-```commandline
-cd src
-sh main_self_validation.sh
-```
+   ```sh
+   pip install -r requirements.txt
+   cd lib && python3 build.py
+   ```
 
-Remember: Before running the above commands, you have to re-check the commands in the shell files. Otherwise, the unnecessary token cost may be caused by improper run (with wrong options)
+3. Detect NPD bug in demo file with LLMSAN
 
-### Generate diagrams and histograms
+   ```
+   sh run_llmsan.sh
+   ```
 
-First, we need to label the ground truth after executing the following command:
+4. Detect NPD bug in demo file with baseline
 
-```commandline
-cd src
-sh statistics_one_model.sh
-```
+   ```
+   sh run_baseline.sh
+   ```
 
-After examining the `xxx_relabel_all.json` in `log/hal_spot`, store the ground-truth in the file named `xxx_ground_truth_all.json`.
+5. Check report
 
-Then you can generate the diagrams and histograms as follows:
+    ```
+    sh report.sh
+    ```
 
-**For LLMHalSpot (one-model mode):**
+## More Configurations
 
-```commandline
-cd src/statistics
-python3 check_ablation.py
-```
+This script runs the LLMSAN analysis. Below are the key configurations:
 
-**For LLMHalSpot (two-model mode):**
+- `--bug-type`: Specify the bug type (e.g., npd for Null Pointer Dereference).
+- `--detection-model`: Specify the LLM model for initial detection (e.g., gpt-3.5-turbo).
+- `--sanitization-model`: Specify the LLM model for sanitization (e.g., gpt-3.5-turbo).
+- `--analysis-mode`: Specify the analysis mode (lazy or eager).
+- `--project-mode`: Specify the project mode (single or all).
+- `--engine`: Specify the analyzer (llmsan or baseline).
+- `-functionality-sanitize`: Enable functionality sanitization.
+- `-reachability-sanitize`: Enable reachability sanitization.
+- `--global-temperature`: Specify the temperature for the model.
+- `--self-consistency-k`: Specify the number of self-consistency iterations.
 
-```commandline
-cd src/statistics
-python3 check_two_model_mode.py
-```
+## Contributing
 
-**For Baseline:**
-
-```commandline
-cd src/statistics
-python3 check_self_verification.py
-```
-
-**Token Cost of LLMHalSpot**
-
-```commandline
-cd src/statistics
-python3 check_token_cost.py
-```
-
-All the diagrams and histograms are stored in `src/statistics`.
-
-## Cost
-
-- Self-Consistency (K = 5, t = 0.5)
-
-  - GPT-4: $42 (estimated)
- 
-  - GPT-3.5: $6.08
-
-  - Claude-3-haiku: $12.17
-
-  - Gemini: Free
-
-  - Total: $108.9
-  
-- Directly Ask + CoT (K = 1, t = 0)
-
-  - GPT-4: $36.4
-
-  - GPT-3.5: $4.35
-
-  - Claude-3-haiku: $5.9
-
-  - Gemini: Free
- 
-  - Total: $46.68
-
-- Initial Inference: $46.68
-
-- Total cost for one track: $242.26
-
-
+Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.

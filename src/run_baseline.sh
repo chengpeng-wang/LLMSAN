@@ -14,13 +14,11 @@ source_bashrc() {
 
 python3 batchrun.py \
   --bug-type=apt \
-  --detection-model=gpt-3.5-turbo-0125 \
-  --sanitization-model=gpt-3.5-turbo-0125 \
+  --detection-model=gpt-3.5-turbo \
+  --sanitization-model=gpt-3.5-turbo \
   --analysis-mode=eager \
   --project-mode=single \
   --engine=baseline \
   --global-temperature=0.0 \
   -step-by-step-check \
   --self-consistency-k=3
-
-

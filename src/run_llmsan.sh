@@ -17,7 +17,7 @@ python3 batchrun.py \
   --detection-model=gpt-3.5-turbo \
   --sanitization-model=gpt-3.5-turbo \
   --analysis-mode=lazy \
-  --project-mode=all \
+  --project-mode=single \
   --engine=llmsan \
   -functionality-sanitize \
   -reachability-sanitize \
