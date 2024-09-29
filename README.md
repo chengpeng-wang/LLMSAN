@@ -41,29 +41,29 @@ LLMSAN is a tool for prompting-based bug detection. Equipped with the sanitizati
 ## Installation
 
 1. Clone the repository:
-    ```sh
+    ```shell
     git clone https://github.com/chengpeng-wang/LLMSAN.git
     cd LLMSAN
     ```
 
 2. Install the required dependencies:
-    ```sh
+    ```shell
     pip install -r requirements.txt
     ```
 
 3. Ensure you have the Tree-sitter library and language bindings installed:
-    ```sh
+    ```shell
     cd lib
     python build.py
     ```
 
 4. Configure the keys:
-    ```sh
+    ```shell
     export OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx >> ~/.bashrc
     ```
 
- Similarly, the other two keys can be set as follows:
-    ```sh
+    Similarly, the other two keys can be set as follows:
+    ```shell
     export REPLICATE_API_TOKEN=xxxxxx >> ~/.bashrc
     export GEMINI_KEY=xxxxxx >> ~/.bashrc
     ```
@@ -74,9 +74,8 @@ LLMSAN is a tool for prompting-based bug detection. Equipped with the sanitizati
 
     We can run the following commands to detect the XSS bug in the file `CWE80_XSS__CWE182_Servlet_database_66.java` as a demo.
 
-    ```bash
-    source ~/.bashrc
-
+    ```shell
+    cd src && source ~/.bashrc
     python3 batchrun.py \
         --bug-type=xss \
         --detection-model=gpt-3.5-turbo \
@@ -96,7 +95,7 @@ LLMSAN is a tool for prompting-based bug detection. Equipped with the sanitizati
 
     Then, you can summarize the analysis reports by running the command. Remember that you should make the values of the common options of batchrun and batchreport the same.
 
-    ```sh
+    ```shell
     cd log
     python3 batchreport.py \
         --bug-type=xss \
@@ -124,12 +123,12 @@ LLMSAN is a tool for prompting-based bug detection. Equipped with the sanitizati
     The values of "xxx_sanitize" indicate whether the data-flow path violate the syntactic or semantic properties. If the value is 1, the property is not violated. If the value of "final" is 1, the bug report is recognized as true bug as all the sanitizers do not discover any violations.
 
   
-2. Analyze a demo case using Baselines
+2. Analyze a demo case using baselines
    
     You can execute the following commands to run the baseline SC-CoT-Check upon the file `CWE80_XSS__CWE182_Servlet_database_66.java` as a demo, where `self-consistency-k` is set to 5 and the temperature is 0.5.
 
-    ```bash
-    source ~/.bashrc
+    ```shell
+    cd src && source ~/.bashrc
     python3 batchrun.py \
         --bug-type=xss \
         --detection-model=gpt-3.5-turbo \
@@ -146,7 +145,7 @@ LLMSAN is a tool for prompting-based bug detection. Equipped with the sanitizati
 
     Similarly, if you want to get the summarized report of a baseline, just run 
 
-    ```sh
+    ```shell
     cd log
     python3 batchreport.py \
         --bug-type=xss \
@@ -160,6 +159,8 @@ LLMSAN is a tool for prompting-based bug detection. Equipped with the sanitizati
     ```
 
     In the generated file `log/report.json`, if the boolean value attached to each data-flow path is true, the data-flow path is recognized as the true bug.
+
+    Attention: You need to run LLMSAN first to obtain the initial detection result before running the baselines checking the detection results.
 
 
 ## Options in LLMSAN
