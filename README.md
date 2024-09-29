@@ -2,7 +2,7 @@
 
 LLMSAN is a tool for prompting-based bug detection. Equipped with the sanitization technique, LLMSAN can recognize false positives in the reported bugs without introducing huge additional token costs.
 
-## Structure of the project
+## Structure of Project
 
 ```
 ├── README.md                              # README 
@@ -22,94 +22,95 @@ LLMSAN is a tool for prompting-based bug detection. Equipped with the sanitizati
 │   ├── batchreport.py                     # Summarize analysis reports
 ├── requirements.txt                       # requirement file
 └── src                                    # Source code directory
- ├── batchrun.py                        # Entry of analysis
- ├── data                               # Data transform directory
- │   └── transform.py                   # Prepare data by obfuscation
- ├── model                              # LLM model related
- │   ├── detector.py                    # End-to-end CoT prompting-based detection
- │   ├── llm.py                         # LLM module
- │   └── utils.py                       # Basic setting of LLMs
- ├── parser                             # Parsing related
- │   └── parser.py                      # Parse LLM output
- ├── pipeline.py                        # Pipelines of LLMSAN and baselines
- ├── prompt                             # Prompt templates of different bug types
- └── sanitizer                          # Sanitizer related
- ├── analyzer.py                    # Program parsing-based analysis
- └── passes.py                      # Implementation of four sanitizers
+ ├── batchrun.py                           # Entry of analysis
+ ├── data                                  # Data transform directory
+ │   └── transform.py                      # Prepare data by obfuscation
+ ├── model                                 # LLM model related
+ │   ├── detector.py                       # End-to-end CoT prompting-based detection
+ │   ├── llm.py                            # LLM module
+ │   └── utils.py                          # Basic setting of LLMs
+ ├── parser                                # Parsing related
+ │   └── parser.py                         # Parse LLM output
+ ├── pipeline.py                           # Pipelines of LLMSAN and baselines
+ ├── prompt                                # Prompt templates of different bug types
+ └── sanitizer                             # Sanitizer related
+ ├── analyzer.py                           # Program parsing-based analysis
+ └── passes.py                             # Implementation of four sanitizers
 ```
 
 ## Installation
 
 1. Clone the repository:
- ```sh
+    ```sh
     git clone https://github.com/chengpeng-wang/LLMSAN.git
     cd LLMSAN
- ```
+    ```
 
 2. Install the required dependencies:
- ```sh
+    ```sh
     pip install -r requirements.txt
- ```
+    ```
 
 3. Ensure you have the Tree-sitter library and language bindings installed:
- ```sh
+    ```sh
     cd lib
     python build.py
- ```
+    ```
 
 4. Configure the keys:
- ```sh
+    ```sh
     export OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx >> ~/.bashrc
- ```
+    ```
 
  Similarly, the other two keys can be set as follows:
- ```sh
+    ```sh
     export REPLICATE_API_TOKEN=xxxxxx >> ~/.bashrc
     export GEMINI_KEY=xxxxxx >> ~/.bashrc
- ```
+    ```
 
 ## Quick Start
 
-1. **Analyze a demo case using LLMSAN**
- We can run the following commands to detect the XSS bug in the file `CWE80_XSS__CWE182_Servlet_database_66.java` as a demo.
+1. Analyze a demo case using LLMSAN
 
- ```bash
-   source ~/.bashrc
+    We can run the following commands to detect the XSS bug in the file `CWE80_XSS__CWE182_Servlet_database_66.java` as a demo.
 
-   python3 batchrun.py \
-      --bug-type=xss \
-     --detection-model=gpt-3.5-turbo \
-      --sanitization-model=gpt-3.5-turbo \
-     --analysis-mode=lazy \
-      --project-mode=single \
-     --engine=llmsan \
-      -functionality-sanitize \
-     -reachability-sanitize \
-      --global-temperature=0.0 \
-     --self-consistency-k=1
- ```
+    ```bash
+    source ~/.bashrc
 
- If you want to detect all the XSS bugs, change `--project-mode=single` to `--project-mode=all`.
+    python3 batchrun.py \
+        --bug-type=xss \
+        --detection-model=gpt-3.5-turbo \
+        --sanitization-model=gpt-3.5-turbo \
+        --analysis-mode=lazy \
+        --project-mode=single \
+        --engine=llmsan \
+        -functionality-sanitize \
+        -reachability-sanitize \
+        --global-temperature=0.0 \
+        --self-consistency-k=1
+    ```
 
- If you want to detect kinds of bugs, change `xss` in `--bug-type=xss` to other bug types, which can be `apt`, `ci`, `npd`, and `dbz`.
+    If you want to detect all the XSS bugs, change `--project-mode=single` to `--project-mode=all`.
 
- Then, you can summarize the analysis reports by running the command. Remember that you should make the values of the common options of batchrun and batchreport the same.
+    If you want to detect kinds of bugs, change `xss` in `--bug-type=xss` to other bug types, which can be `apt`, `ci`, `npd`, and `dbz`.
 
- ```sh
-   cd log
-   python3 batchreport.py \
-      --bug-type=xss \
-     --detection-model=gpt-3.5-turbo \
-      --sanitization-model=gpt-3.5-turbo \
-     --project-mode=single \
-      --engine=llmsan \
-     --global-temperature=0.0 \
-      --self-consistency-k=1
- ```
+    Then, you can summarize the analysis reports by running the command. Remember that you should make the values of the common options of batchrun and batchreport the same.
 
- The summary of the analysis will be dumped to `report.json` in the directory `log`. In each item, the following dictionary shows the details of the detection and sanitization: 
+    ```sh
+    cd log
+    python3 batchreport.py \
+        --bug-type=xss \
+        --detection-model=gpt-3.5-turbo \
+        --sanitization-model=gpt-3.5-turbo \
+        --project-mode=single \
+        --engine=llmsan \
+        --global-temperature=0.0 \
+        --self-consistency-k=1
+    ```
 
- ```json
+    The summary of the analysis will be dumped to `report.json` in the directory `log`. In each item, the following dictionary shows the details of the detection and sanitization: 
+
+    ```json
     "result": {
         "type_sanitize": 1,
         "functionality_sanitize": 1,
@@ -118,51 +119,47 @@ LLMSAN is a tool for prompting-based bug detection. Equipped with the sanitizati
         "total": 1,
         "final": 1
     }
- ```
+    ```
 
- The values of "xxx_sanitize" indicate whether the data-flow path violate the syntactic or semantic properties. If the value is 1, the property is not violated. If the value of "final" is 1, the bug report is recognized as true bug as all the sanitizers do not discover any violations.
+    The values of "xxx_sanitize" indicate whether the data-flow path violate the syntactic or semantic properties. If the value is 1, the property is not violated. If the value of "final" is 1, the bug report is recognized as true bug as all the sanitizers do not discover any violations.
 
   
-2. **Analyze a demo case using Baselines**
+2. Analyze a demo case using Baselines
    
- You can execute the following commands to run the baseline SC-CoT-Check upon the file `CWE80_XSS__CWE182_Servlet_database_66.java` as a demo, where `self-consistency-k` is set to 5 and the temperature is 0.5.
+    You can execute the following commands to run the baseline SC-CoT-Check upon the file `CWE80_XSS__CWE182_Servlet_database_66.java` as a demo, where `self-consistency-k` is set to 5 and the temperature is 0.5.
 
- ```bash
-   source ~/.bashrc
-   python3 batchrun.py \
-    --bug-type=xss \
-    --detection-model=gpt-3.5-turbo \
-    --sanitization-model=gpt-3.5-turbo \
-    --analysis-mode=lazy \
-    --project-mode=single \
-    --engine=baseline \
-    --global-temperature=0.5 \
-    -step-by-step-check \
-    --self-consistency-k=5
- ```
+    ```bash
+    source ~/.bashrc
+    python3 batchrun.py \
+        --bug-type=xss \
+        --detection-model=gpt-3.5-turbo \
+        --sanitization-model=gpt-3.5-turbo \
+        --analysis-mode=lazy \
+        --project-mode=single \
+        --engine=baseline \
+        --global-temperature=0.5 \
+        -step-by-step-check \
+        --self-consistency-k=5
+    ```
 
- You can remove `-step-by-step-check` to disable CoT strategy and set `self-consistency-k` to 1 to disable self-consistency.
+    You can remove `-step-by-step-check` to disable CoT strategy and set `self-consistency-k` to 1 to disable self-consistency.
 
- Similarly, if you want to get the summarized report of a baseline, just run 
+    Similarly, if you want to get the summarized report of a baseline, just run 
 
- ```sh
-   cd log
-   python3 batchreport.py \
-      --bug-type=xss \
-     --detection-model=gpt-3.5-turbo \
-      --sanitization-model=gpt-3.5-turbo \
-     --project-mode=single \
-      --engine=baseline \
-     -step-by-step-check \
-      --global-temperature=0.5 \
-     --self-consistency-k=5
- ```
+    ```sh
+    cd log
+    python3 batchreport.py \
+        --bug-type=xss \
+        --detection-model=gpt-3.5-turbo \
+        --sanitization-model=gpt-3.5-turbo \
+        --project-mode=single \
+        --engine=baseline \
+        -step-by-step-check \
+        --global-temperature=0.5 \
+        --self-consistency-k=5
+    ```
 
- In the generated file `log/report.json`, if the boolean value attached to each data-flow path is true, the data-flow path is recognized as the true bug.
-
-3. **Remark**
-
- To avoid the leakage of ground truth to LLMs, we obfuscate the code in the Juliet Test Suite. The details of the obfuscation can be found in the function `obfuscate` in the file `src/data/transform.py`. Also, we concatenate multiple Java files belonging to the same test case into a single file for convenience in prompting, even though the resulting file may not be compilable.
+    In the generated file `log/report.json`, if the boolean value attached to each data-flow path is true, the data-flow path is recognized as the true bug.
 
 
 ## Options in LLMSAN
@@ -181,7 +178,11 @@ You can configure the analysis by specifying the proper options. Here are the de
 - `--global-temperature`: Specify the temperature for the model. The temperature of LLMSAN is always set to 0.0. 
 - `--self-consistency-k`: Specify the number of self-consistency iterations. The self-consistency-k value of LLMSAN is always set to 1
 
-### More Programming Languages
+## Remark on Dataset
+
+To avoid the leakage of ground truth to LLMs, we obfuscate the code in the Juliet Test Suite. The details of the obfuscation can be found in the function `obfuscate` in the file `src/data/transform.py`. Also, we concatenate multiple Java files belonging to the same test case into a single file for convenience in prompting, even though the resulting file may not be compilable.
+
+## More Programming Languages
 
 LLMSAN is language-agnostic. To migrate the current implementations to other programming languages or extract more syntactic facts, please refer to the grammar files in the corresponding Tree-sitter libraries and refactor the code in `sanitizer/analyzer.py`. Basically, you only need to change the node types when invoking `find_nodes_by_type`.
 
