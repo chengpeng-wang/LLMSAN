@@ -1,0 +1,19 @@
+{
+    "trace": [
+        [
+            99,
+            "data"
+        ],
+        [
+            107,
+            "data"
+        ]
+    ],
+    "all program size": 29,
+    "wrong_flow_function": "fooxx2",
+    "wrong_flow_start_line_number": 99,
+    "wrong_flow_end_line_number": 107,
+    "wrong_flow_response": "Step 1: \n- The variable `data` appears in `data = null;`.\n- The variable `data` also appears in `IO.writeLine(\"\" + data.toString());`.\n\nStep 2:\n- The value of `data` at line 14 is `null`.\n- The value of `data` before line 22 is `5`.\n\nTherefore, the value of `data` at line 14 and the value of `data` before line 22 are not the same.\n\nNo",
+    "input_token_cost": 0,
+    "output_token_cost": 0
+}

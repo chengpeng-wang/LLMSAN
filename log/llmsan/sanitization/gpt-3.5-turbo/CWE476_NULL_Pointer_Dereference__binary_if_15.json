@@ -1,0 +1,66 @@
+{
+    "original code": "/* TEMPLATE GENERATED TESTCASE FILE\nFilename: CWE476_NULL_Pointer_Dereference__binary_if_15.java\nLabel Definition File: CWE476_NULL_Pointer_Dereference.pointflaw.label.xml\nTemplate File: point-flaw-15.tmpl.java\n*/\n/*\n* @description\n* CWE: 476 NULL Pointer Dereference\n* Sinks: binary_if\n*    GoodSink: Do not check for null after the object has been dereferenced\n*    BadSink : Check for null after an object has already been dereferenced\n* Flow Variant: 15 Control flow: switch(7)\n*\n* */\n\npackage testcases.CWE476_NULL_Pointer_Dereference;\n\nimport testcasesupport.*;\n\npublic class CWE476_NULL_Pointer_Dereference__binary_if_15 extends AbstractTestCase\n{\n    public void bad() throws Throwable\n    {\n        switch (7)\n        {\n        case 7:\n        {\n            String myString = null;\n            /* FLAW: Using a single & in the if statement will cause both sides of the expression to be evaluated\n             * thus causing a NPD */\n            if ((myString != null) & (myString.length() > 0))\n            {\n                IO.writeLine(\"The string length is greater than 0\");\n            }\n        }\n        break;\n        default:\n            /* INCIDENTAL: CWE 561 Dead Code, the code below will never run */\n            IO.writeLine(\"Benign, fixed string\");\n            break;\n        }\n    }\n\n    /* good1() change the switch to switch(8) */\n    private void good1() throws Throwable\n    {\n        switch (8)\n        {\n        case 7:\n            /* INCIDENTAL: CWE 561 Dead Code, the code below will never run */\n            IO.writeLine(\"Benign, fixed string\");\n            break;\n        default:\n        {\n            String myString = null;\n            /* FIX: Use && in the if statement so that if the left side of the expression fails then\n             * the right side will not be evaluated */\n            if ((myString != null) && (myString.length() > 0))\n            {\n                IO.writeLine(\"The string length is greater than 0\");\n            }\n        }\n        break;\n        }\n    }\n\n    /* good2() reverses the blocks in the switch  */\n    private void good2() throws Throwable\n    {\n        switch (7)\n        {\n        case 7:\n        {\n            String myString = null;\n            /* FIX: Use && in the if statement so that if the left side of the expression fails then\n             * the right side will not be evaluated */\n            if ((myString != null) && (myString.length() > 0))\n            {\n                IO.writeLine(\"The string length is greater than 0\");\n            }\n        }\n        break;\n        default:\n            /* INCIDENTAL: CWE 561 Dead Code, the code below will never run */\n            IO.writeLine(\"Benign, fixed string\");\n            break;\n        }\n    }\n\n    public void good() throws Throwable\n    {\n        good1();\n        good2();\n    }\n\n    /* Below is the main(). It is only used when building this testcase on\n     * its own for testing or for building a binary to use in testing binary\n     * analysis tools. It is not used when compiling all the testcases as one\n     * application, which is how source code analysis tools are tested.\n     */\n    public static void main(String[] args) throws ClassNotFoundException,\n           InstantiationException, IllegalAccessException\n    {\n        mainFromParent(args);\n    }\n}\n",
+    "analyzed code": "1  \n2  \n3  \n4  \n5  \n6  \n7  \n8  \n9  \n10  \n11  \n12  \n13  \n14  \n15  \n16  package testcases.CWE476_NULL_Pointer_Dereference;\n17  \n18  import testcasesupport.*;\n19  \n20  public class CWE476_NULL_Pointer_Dereference__binary_if_15 extends AbstractTestCase\n21  {\n22      public void hoo() throws Throwable\n23      {\n24          switch (7)\n25          {\n26          case 7:\n27          {\n28              String myString = null;\n29              \n30  \n31              if ((myString != null) & (myString.length() > 0))\n32              {\n33                  IO.writeLine(\"The string length is greater than 0\");\n34              }\n35          }\n36          break;\n37          default:\n38              \n39              IO.writeLine(\"Benign, fixed string\");\n40              break;\n41          }\n42      }\n43  \n44      \n45      private void foo1() throws Throwable\n46      {\n47          switch (8)\n48          {\n49          case 7:\n50              \n51              IO.writeLine(\"Benign, fixed string\");\n52              break;\n53          default:\n54          {\n55              String myString = null;\n56              \n57  \n58              if ((myString != null) && (myString.length() > 0))\n59              {\n60                  IO.writeLine(\"The string length is greater than 0\");\n61              }\n62          }\n63          break;\n64          }\n65      }\n66  \n67      \n68      private void foo2() throws Throwable\n69      {\n70          switch (7)\n71          {\n72          case 7:\n73          {\n74              String myString = null;\n75              \n76  \n77              if ((myString != null) && (myString.length() > 0))\n78              {\n79                  IO.writeLine(\"The string length is greater than 0\");\n80              }\n81          }\n82          break;\n83          default:\n84              \n85              IO.writeLine(\"Benign, fixed string\");\n86              break;\n87          }\n88      }\n89  \n90      public void foo() throws Throwable\n91      {\n92          foo1();\n93          foo2();\n94      }\n95  \n96      \n97  \n98  \n99  \n100  \n101      public static void main(String[] args) throws ClassNotFoundException,\n102             InstantiationException, IllegalAccessException\n103      {\n104          mainFromParent(args);\n105      }\n106  }\n107  ",
+    "trace_check_results": [
+        {
+            "trace": [
+                [
+                    28,
+                    "myString"
+                ],
+                [
+                    31,
+                    "myString"
+                ]
+            ],
+            "result": {
+                "type_sanitize": 1,
+                "functionality_sanitize": 0,
+                "order_sanitize": 1,
+                "reachability_sanitize": 1,
+                "total": 1,
+                "final": 0
+            }
+        },
+        {
+            "trace": [
+                [
+                    55,
+                    "myString"
+                ],
+                [
+                    58,
+                    "myString"
+                ]
+            ],
+            "result": {
+                "type_sanitize": 1,
+                "functionality_sanitize": 0,
+                "order_sanitize": 1,
+                "reachability_sanitize": 1,
+                "total": 1,
+                "final": 0
+            }
+        },
+        {
+            "trace": [
+                [
+                    74,
+                    "myString"
+                ],
+                [
+                    77,
+                    "myString"
+                ]
+            ],
+            "result": {
+                "type_sanitize": 1,
+                "functionality_sanitize": 0,
+                "order_sanitize": 1,
+                "reachability_sanitize": 1,
+                "total": 1,
+                "final": 0
+            }
+        }
+    ]
+}

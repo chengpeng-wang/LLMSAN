@@ -1,0 +1,21 @@
+{
+    "src code": "1  private void fooxx2() throws Throwable\n2      {\n3          Integer data;\n4          if (privateTrue)\n5          {\n6              \n7              data = Integer.valueOf(5);\n8          }\n9          else\n10          {\n11              \n12  \n13              data = null;\n14          }\n15  \n16          if (privateTrue)\n17          {\n18              \n19              IO.writeLine(\"\" + data.toString());\n20          }\n21      }",
+    "sink code": "1  private void fooxx2() throws Throwable\n2      {\n3          Integer data;\n4          if (privateTrue)\n5          {\n6              \n7              data = Integer.valueOf(5);\n8          }\n9          else\n10          {\n11              \n12  \n13              data = null;\n14          }\n15  \n16          if (privateTrue)\n17          {\n18              \n19              IO.writeLine(\"\" + data.toString());\n20          }\n21      }",
+    "src response": "(Step 1) Line 13 is an assignment from a null value because `data` is assigned with `null` in the else block.\n\n(Step 2) Let's examine the branch condition:\n- If `privateTrue` is true, then `data` is assigned `Integer.valueOf(5)` and line 13 is not reachable.\n- If `privateTrue` is false, then `data` is assigned `null` and line 13 is reachable.\n\nTherefore, line 13 can be reached and `data` can have a null value.\n\nYes",
+    "sink response": "Step 1: Line 19 contains a method access upon the Java object data, as data.toString() is being called.\n\nStep 2: There is no check to ensure that data is not equal to null before invoking the toString() method on it.\n\nTherefore, the line 19 may have a null value and be dereferenced.\n\nYes",
+    "trace": [
+        [
+            91,
+            "data"
+        ],
+        [
+            97,
+            "data"
+        ]
+    ],
+    "all program size": 42,
+    "is_src": true,
+    "is_sink": true,
+    "input_token_cost": 0,
+    "output_token_cost": 0
+}

@@ -1,0 +1,19 @@
+{
+    "trace": [
+        [
+            64,
+            "data"
+        ],
+        [
+            122,
+            "data.replaceAll(\"(<script>)\", \"\")"
+        ]
+    ],
+    "all program size": 81,
+    "wrong_flow_function": "",
+    "wrong_flow_start_line_number": -1,
+    "wrong_flow_end_line_number": -1,
+    "wrong_flow_response": "",
+    "input_token_cost": 0,
+    "output_token_cost": 0
+}

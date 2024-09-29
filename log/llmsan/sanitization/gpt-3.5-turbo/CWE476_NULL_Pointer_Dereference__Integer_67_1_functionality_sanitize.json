@@ -1,0 +1,25 @@
+{
+    "src code": "1  public void hoo() throws Throwable\n2      {\n3          Integer data;\n4  \n5          \n6          data = null;\n7  \n8          Container dataContainer = new Container();\n9          dataContainer.containerOne = data;\n10          CWE476_NULL_Pointer_Dereference__Integer_67b_hooSink(dataContainer  );\n11      }",
+    "sink code": "1  public void hoo() throws Throwable\n2      {\n3          Integer data;\n4  \n5          \n6          data = null;\n7  \n8          Container dataContainer = new Container();\n9          dataContainer.containerOne = data;\n10          CWE476_NULL_Pointer_Dereference__Integer_67b_hooSink(dataContainer  );\n11      }",
+    "src response": "Step 1: Line 6 is an assignment from a null value.\n\nStep 2: Line 6 is directly assigning the value null to the variable data.\n\nTherefore, data at line 6 can be null.\n\nYes",
+    "sink response": "Step 1: The program line contains a method access upon a Java object (data.toString()), indicating a potential dereference of a null value.\n\nStep 2: There is no check to ensure that the variable data is not equal to null before invoking the toString() method. Hence, there is a possibility of a null pointer dereference.\n\nYes",
+    "trace": [
+        [
+            34,
+            "data"
+        ],
+        [
+            37,
+            "data"
+        ],
+        [
+            84,
+            "data"
+        ]
+    ],
+    "all program size": 17,
+    "is_src": true,
+    "is_sink": true,
+    "input_token_cost": 0,
+    "output_token_cost": 0
+}

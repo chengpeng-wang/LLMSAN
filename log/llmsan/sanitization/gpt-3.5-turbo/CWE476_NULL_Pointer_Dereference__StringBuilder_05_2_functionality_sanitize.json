@@ -1,0 +1,21 @@
+{
+    "src code": "1  private void fooxx1() throws Throwable\n2      {\n3          StringBuilder data;\n4          if (privateFalse)\n5          {\n6              \n7  \n8              data = null;\n9          }\n10          else\n11          {\n12  \n13              \n14              data = new StringBuilder();\n15  \n16          }\n17  \n18          if (privateTrue)\n19          {\n20              \n21              IO.writeLine(\"\" + data.length());\n22          }\n23      }",
+    "sink code": "1  private void fooxx1() throws Throwable\n2      {\n3          StringBuilder data;\n4          if (privateFalse)\n5          {\n6              \n7  \n8              data = null;\n9          }\n10          else\n11          {\n12  \n13              \n14              data = new StringBuilder();\n15  \n16          }\n17  \n18          if (privateTrue)\n19          {\n20              \n21              IO.writeLine(\"\" + data.length());\n22          }\n23      }",
+    "src response": "Step 1: Line 8 is an assignment from a null value.\n\nStep 2: Branch condition at line 4 is `privateFalse`. If `privateFalse` is true, then line 8 will be executed and `data` will be assigned null. If `privateFalse` is false, then line 14 will be executed and `data` will be assigned a new StringBuilder object.\n\nTherefore, line 8 can be reached and `data` can be null.\n\nYes",
+    "sink response": "Step 1: The program line 21 contains a method access upon the Java object data.\n\nStep 2: The program line 21 does not check whether data is equal to null before invoking the method length().\n\nTherefore, the line 21 may have a null value and be dereferenced.\n\nYes",
+    "trace": [
+        [
+            61,
+            "data"
+        ],
+        [
+            74,
+            "data"
+        ]
+    ],
+    "all program size": 46,
+    "is_src": true,
+    "is_sink": true,
+    "input_token_cost": 0,
+    "output_token_cost": 0
+}

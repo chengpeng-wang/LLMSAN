@@ -1,0 +1,21 @@
+{
+    "src code": "1  public void hoo() throws Throwable\n2      {\n3          Integer data;\n4  \n5          \n6          data = null;\n7  \n8          \n9          IO.writeLine(\"\" + data.toString());\n10  \n11      }",
+    "sink code": "1  public void hoo() throws Throwable\n2      {\n3          Integer data;\n4  \n5          \n6          data = null;\n7  \n8          \n9          IO.writeLine(\"\" + data.toString());\n10  \n11      }",
+    "src response": "Step 1: Line 6 is an assignment from a null value.\n\nStep 2: Line 6 is a direct assignment of null to the variable data without any conditions or branches.\n\nTherefore, data at line 6 can be null.\n\nYes",
+    "sink response": "Step 1: The program line 9 contains a method access upon the Java object data, as data.toString() is being called.\n\nStep 2: There is no check to ensure that data is not equal to null before invoking the toString() method on it.\n\nTherefore, the line 9 may have a null value and be dereferenced.\n\nYes",
+    "trace": [
+        [
+            29,
+            "data"
+        ],
+        [
+            32,
+            "data"
+        ]
+    ],
+    "all program size": 22,
+    "is_src": true,
+    "is_sink": true,
+    "input_token_cost": 0,
+    "output_token_cost": 0
+}

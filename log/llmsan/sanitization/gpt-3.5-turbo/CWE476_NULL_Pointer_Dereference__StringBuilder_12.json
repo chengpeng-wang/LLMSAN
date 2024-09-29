@@ -1,0 +1,46 @@
+{
+    "original code": "/* TEMPLATE GENERATED TESTCASE FILE\nFilename: CWE476_NULL_Pointer_Dereference__StringBuilder_12.java\nLabel Definition File: CWE476_NULL_Pointer_Dereference.label.xml\nTemplate File: sources-sinks-12.tmpl.java\n*/\n/*\n* @description\n* CWE: 476 Null Pointer Dereference\n* BadSource:  Set data to null\n* GoodSource: Set data to a non-null value\n* Sinks:\n*    GoodSink: add check to prevent possibility of null dereference\n*    BadSink : possibility of null dereference\n* Flow Variant: 12 Control flow: if(IO.staticReturnsTrueOrFalse())\n*\n* */\n\npackage testcases.CWE476_NULL_Pointer_Dereference;\n\nimport testcasesupport.*;\n\npublic class CWE476_NULL_Pointer_Dereference__StringBuilder_12 extends AbstractTestCase\n{\n    public void bad() throws Throwable\n    {\n        StringBuilder data;\n        if(IO.staticReturnsTrueOrFalse())\n        {\n            /* POTENTIAL FLAW: data is null */\n            data = null;\n        }\n        else\n        {\n\n            /* FIX: hardcode data to non-null */\n            data = new StringBuilder();\n\n        }\n\n        if(IO.staticReturnsTrueOrFalse())\n        {\n            /* POTENTIAL FLAW: null dereference will occur if data is null */\n            IO.writeLine(\"\" + data.length());\n        }\n        else\n        {\n\n            /* FIX: validate that data is non-null */\n            if (data != null)\n            {\n                IO.writeLine(\"\" + data.length());\n            }\n            else\n            {\n                IO.writeLine(\"data is null\");\n            }\n\n        }\n    }\n\n    /* goodG2B() - use goodsource and badsink by changing the first \"if\" so that\n     * both branches use the GoodSource */\n    private void goodG2B() throws Throwable\n    {\n        StringBuilder data;\n        if(IO.staticReturnsTrueOrFalse())\n        {\n            /* FIX: hardcode data to non-null */\n            data = new StringBuilder();\n        }\n        else\n        {\n\n            /* FIX: hardcode data to non-null */\n            data = new StringBuilder();\n\n        }\n\n        if(IO.staticReturnsTrueOrFalse())\n        {\n            /* POTENTIAL FLAW: null dereference will occur if data is null */\n            IO.writeLine(\"\" + data.length());\n        }\n        else\n        {\n\n            /* POTENTIAL FLAW: null dereference will occur if data is null */\n            IO.writeLine(\"\" + data.length());\n\n        }\n    }\n\n    /* goodB2G() - use badsource and goodsink by changing the second \"if\" so that\n     * both branches use the GoodSink */\n    private void goodB2G() throws Throwable\n    {\n        StringBuilder data;\n        if(IO.staticReturnsTrueOrFalse())\n        {\n            /* POTENTIAL FLAW: data is null */\n            data = null;\n        }\n        else\n        {\n\n            /* POTENTIAL FLAW: data is null */\n            data = null;\n\n        }\n\n        if(IO.staticReturnsTrueOrFalse())\n        {\n            /* FIX: validate that data is non-null */\n            if (data != null)\n            {\n                IO.writeLine(\"\" + data.length());\n            }\n            else\n            {\n                IO.writeLine(\"data is null\");\n            }\n        }\n        else\n        {\n\n            /* FIX: validate that data is non-null */\n            if (data != null)\n            {\n                IO.writeLine(\"\" + data.length());\n            }\n            else\n            {\n                IO.writeLine(\"data is null\");\n            }\n\n        }\n    }\n\n    public void good() throws Throwable\n    {\n        goodG2B();\n        goodB2G();\n    }\n\n    /* Below is the main(). It is only used when building this testcase on\n     * its own for testing or for building a binary to use in testing binary\n     * analysis tools. It is not used when compiling all the testcases as one\n     * application, which is how source code analysis tools are tested.\n     */\n    public static void main(String[] args) throws ClassNotFoundException,\n           InstantiationException, IllegalAccessException\n    {\n        mainFromParent(args);\n    }\n}\n",
+    "analyzed code": "1  \n2  \n3  \n4  \n5  \n6  \n7  \n8  \n9  \n10  \n11  \n12  \n13  \n14  \n15  \n16  \n17  \n18  package testcases.CWE476_NULL_Pointer_Dereference;\n19  \n20  import testcasesupport.*;\n21  \n22  public class CWE476_NULL_Pointer_Dereference__StringBuilder_12 extends AbstractTestCase\n23  {\n24      public void hoo() throws Throwable\n25      {\n26          StringBuilder data;\n27          if(IO.staticReturnsTrueOrFalse())\n28          {\n29              \n30              data = null;\n31          }\n32          else\n33          {\n34  \n35              \n36              data = new StringBuilder();\n37  \n38          }\n39  \n40          if(IO.staticReturnsTrueOrFalse())\n41          {\n42              \n43              IO.writeLine(\"\" + data.length());\n44          }\n45          else\n46          {\n47  \n48              \n49              if (data != null)\n50              {\n51                  IO.writeLine(\"\" + data.length());\n52              }\n53              else\n54              {\n55                  IO.writeLine(\"data is null\");\n56              }\n57  \n58          }\n59      }\n60  \n61      \n62  \n63      private void fooxx() throws Throwable\n64      {\n65          StringBuilder data;\n66          if(IO.staticReturnsTrueOrFalse())\n67          {\n68              \n69              data = new StringBuilder();\n70          }\n71          else\n72          {\n73  \n74              \n75              data = new StringBuilder();\n76  \n77          }\n78  \n79          if(IO.staticReturnsTrueOrFalse())\n80          {\n81              \n82              IO.writeLine(\"\" + data.length());\n83          }\n84          else\n85          {\n86  \n87              \n88              IO.writeLine(\"\" + data.length());\n89  \n90          }\n91      }\n92  \n93      \n94  \n95      private void fooyy() throws Throwable\n96      {\n97          StringBuilder data;\n98          if(IO.staticReturnsTrueOrFalse())\n99          {\n100              \n101              data = null;\n102          }\n103          else\n104          {\n105  \n106              \n107              data = null;\n108  \n109          }\n110  \n111          if(IO.staticReturnsTrueOrFalse())\n112          {\n113              \n114              if (data != null)\n115              {\n116                  IO.writeLine(\"\" + data.length());\n117              }\n118              else\n119              {\n120                  IO.writeLine(\"data is null\");\n121              }\n122          }\n123          else\n124          {\n125  \n126              \n127              if (data != null)\n128              {\n129                  IO.writeLine(\"\" + data.length());\n130              }\n131              else\n132              {\n133                  IO.writeLine(\"data is null\");\n134              }\n135  \n136          }\n137      }\n138  \n139      public void foo() throws Throwable\n140      {\n141          fooxx();\n142          fooyy();\n143      }\n144  \n145      \n146  \n147  \n148  \n149  \n150      public static void main(String[] args) throws ClassNotFoundException,\n151             InstantiationException, IllegalAccessException\n152      {\n153          mainFromParent(args);\n154      }\n155  }\n156  ",
+    "trace_check_results": [
+        {
+            "trace": [
+                [
+                    30,
+                    "data"
+                ],
+                [
+                    43,
+                    "data"
+                ]
+            ],
+            "result": {
+                "type_sanitize": 1,
+                "functionality_sanitize": 1,
+                "order_sanitize": 1,
+                "reachability_sanitize": 0,
+                "total": 1,
+                "final": 0
+            }
+        },
+        {
+            "trace": [
+                [
+                    101,
+                    "data"
+                ],
+                [
+                    116,
+                    "data"
+                ]
+            ],
+            "result": {
+                "type_sanitize": 1,
+                "functionality_sanitize": 1,
+                "order_sanitize": 1,
+                "reachability_sanitize": 1,
+                "total": 1,
+                "final": 1
+            }
+        }
+    ]
+}

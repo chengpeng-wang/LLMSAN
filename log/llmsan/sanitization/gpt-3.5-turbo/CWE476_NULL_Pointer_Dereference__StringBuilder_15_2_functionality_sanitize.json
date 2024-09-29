@@ -1,0 +1,21 @@
+{
+    "src code": "1  private void fooxx1() throws Throwable\n2      {\n3          StringBuilder data;\n4  \n5          switch (5)\n6          {\n7          case 6:\n8              \n9  \n10              data = null;\n11              break;\n12          default:\n13              \n14              data = new StringBuilder();\n15              break;\n16          }\n17  \n18          switch (7)\n19          {\n20          case 7:\n21              \n22              IO.writeLine(\"\" + data.length());\n23              break;\n24          default:\n25              \n26              IO.writeLine(\"Benign, fixed string\");\n27              break;\n28          }\n29      }",
+    "sink code": "1  private void fooxx1() throws Throwable\n2      {\n3          StringBuilder data;\n4  \n5          switch (5)\n6          {\n7          case 6:\n8              \n9  \n10              data = null;\n11              break;\n12          default:\n13              \n14              data = new StringBuilder();\n15              break;\n16          }\n17  \n18          switch (7)\n19          {\n20          case 7:\n21              \n22              IO.writeLine(\"\" + data.length());\n23              break;\n24          default:\n25              \n26              IO.writeLine(\"Benign, fixed string\");\n27              break;\n28          }\n29      }",
+    "src response": "(Step 1) Line 10 is an assignment where `data` is assigned with `null`.\n\n(Step 2) The branch condition for line 10 is within a switch statement where the case is `5`. Since the switch statement has a case `5`, the line 10 is reachable.\n\nYes",
+    "sink response": "Step 1: The program line 22 contains a method access upon a Java object (data.length()).\n\nStep 2: The program line 22 does not check whether data is null before invoking the length() method.\n\nTherefore, the line 22 may have a null value and be dereferenced.\n\nYes",
+    "trace": [
+        [
+            64,
+            "data"
+        ],
+        [
+            76,
+            "data"
+        ]
+    ],
+    "all program size": 58,
+    "is_src": true,
+    "is_sink": true,
+    "input_token_cost": 0,
+    "output_token_cost": 0
+}

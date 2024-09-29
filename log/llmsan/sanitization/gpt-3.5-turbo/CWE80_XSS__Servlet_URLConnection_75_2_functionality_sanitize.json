@@ -1,0 +1,29 @@
+{
+    "src code": "1  private void fooxx(HttpServletRequest request, HttpServletResponse response) throws Throwable\n2      {\n3          String data;\n4  \n5          \n6          data = \"foo\";\n7  \n8          \n9          ByteArrayOutputStream streamByteArrayOutput = null;\n10          ObjectOutput outputObject = null;\n11  \n12          try\n13          {\n14              streamByteArrayOutput = new ByteArrayOutputStream() ;\n15              outputObject = new ObjectOutputStream(streamByteArrayOutput) ;\n16              outputObject.writeObject(data);\n17              byte[] dataSerialized = streamByteArrayOutput.toByteArray();\n18              CWE80_XSS__Servlet_URLConnection_75b_fooxxSink(dataSerialized , request, response );\n19          }\n20          catch (IOException exceptIO)\n21          {\n22              IO.logger.log(Level.WARNING, \"IOException in serialization\", exceptIO);\n23          }\n24          finally\n25          {\n26              \n27              try\n28              {\n29                  if (outputObject != null)\n30                  {\n31                      outputObject.close();\n32                  }\n33              }\n34              catch (IOException exceptIO)\n35              {\n36                  IO.logger.log(Level.WARNING, \"Error closing ObjectOutputStream\", exceptIO);\n37              }\n38  \n39              try\n40              {\n41                  if (streamByteArrayOutput != null)\n42                  {\n43                      streamByteArrayOutput.close();\n44                  }\n45              }\n46              catch (IOException exceptIO)\n47              {\n48                  IO.logger.log(Level.WARNING, \"Error closing ByteArrayOutputStream\", exceptIO);\n49              }\n50          }\n51      }",
+    "sink code": "1  private void fooxx(HttpServletRequest request, HttpServletResponse response) throws Throwable\n2      {\n3          String data;\n4  \n5          \n6          data = \"foo\";\n7  \n8          \n9          ByteArrayOutputStream streamByteArrayOutput = null;\n10          ObjectOutput outputObject = null;\n11  \n12          try\n13          {\n14              streamByteArrayOutput = new ByteArrayOutputStream() ;\n15              outputObject = new ObjectOutputStream(streamByteArrayOutput) ;\n16              outputObject.writeObject(data);\n17              byte[] dataSerialized = streamByteArrayOutput.toByteArray();\n18              CWE80_XSS__Servlet_URLConnection_75b_fooxxSink(dataSerialized , request, response );\n19          }\n20          catch (IOException exceptIO)\n21          {\n22              IO.logger.log(Level.WARNING, \"IOException in serialization\", exceptIO);\n23          }\n24          finally\n25          {\n26              \n27              try\n28              {\n29                  if (outputObject != null)\n30                  {\n31                      outputObject.close();\n32                  }\n33              }\n34              catch (IOException exceptIO)\n35              {\n36                  IO.logger.log(Level.WARNING, \"Error closing ObjectOutputStream\", exceptIO);\n37              }\n38  \n39              try\n40              {\n41                  if (streamByteArrayOutput != null)\n42                  {\n43                      streamByteArrayOutput.close();\n44                  }\n45              }\n46              catch (IOException exceptIO)\n47              {\n48                  IO.logger.log(Level.WARNING, \"Error closing ByteArrayOutputStream\", exceptIO);\n49              }\n50          }\n51      }",
+    "src response": "The program variable at line 6 is assigned with the value \"foo\" directly in the code. There is no indication that the value is coming from any sensitive source such as outbound tcp connection, console input, database query result, file, cookie, request parameter, string tokenizer, property file, system property, or URLConnection. Therefore, the value at line 6 is not sensitive data.\n\nYes",
+    "sink response": "The program provided reads an object from a byte array and then prints the object as a string to the response. The sensitive data is deserialized from the byte array and then printed to the response.\n\n1. The statement at line 14 invokes the function println.\n2. The data being printed at line 14 is the deserialized object from the byte array.\n3. Since the deserialized object is considered sensitive data, and it is being printed to the response, the answer is Yes.\n\nYes",
+    "trace": [
+        [
+            146,
+            "data"
+        ],
+        [
+            158,
+            "dataSerialized"
+        ],
+        [
+            264,
+            "data"
+        ],
+        [
+            268,
+            "data"
+        ]
+    ],
+    "all program size": 102,
+    "is_src": true,
+    "is_sink": true,
+    "input_token_cost": 0,
+    "output_token_cost": 0
+}

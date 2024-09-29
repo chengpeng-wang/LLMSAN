@@ -1,0 +1,19 @@
+{
+    "trace": [
+        [
+            54,
+            "data"
+        ],
+        [
+            67,
+            "data"
+        ]
+    ],
+    "all program size": 23,
+    "wrong_flow_function": "fooxx1",
+    "wrong_flow_start_line_number": 54,
+    "wrong_flow_end_line_number": 67,
+    "wrong_flow_response": "Step 1: The variable/expression data appears in both `data = null;` at line 8 and `IO.writeLine(\"\" + data.toString());` at line 21.\n\nStep 2: The value of data at line 8 is set to null when `IO.staticFalse` is true, and it is set to Integer.valueOf(5) when `IO.staticFalse` is false. Since `IO.staticTrue` is not dependent on `IO.staticFalse`, the value of data at line 8 and line 21 can be different.\n\nNo",
+    "input_token_cost": 0,
+    "output_token_cost": 0
+}

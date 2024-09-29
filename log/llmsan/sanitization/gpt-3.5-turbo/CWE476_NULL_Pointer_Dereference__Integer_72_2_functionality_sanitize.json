@@ -1,0 +1,33 @@
+{
+    "src code": "1  private void fooyy() throws Throwable\n2      {\n3          Integer data;\n4  \n5          \n6          data = null;\n7  \n8          Vector<Integer> dataVector = new Vector<Integer>(5);\n9          dataVector.add(0, data);\n10          dataVector.add(1, data);\n11          dataVector.add(2, data);\n12          CWE476_NULL_Pointer_Dereference__Integer_72b_fooyySink(dataVector  );\n13      }",
+    "sink code": "1  private void fooyy() throws Throwable\n2      {\n3          Integer data;\n4  \n5          \n6          data = null;\n7  \n8          Vector<Integer> dataVector = new Vector<Integer>(5);\n9          dataVector.add(0, data);\n10          dataVector.add(1, data);\n11          dataVector.add(2, data);\n12          CWE476_NULL_Pointer_Dereference__Integer_72b_fooyySink(dataVector  );\n13      }",
+    "src response": "Step 1: Line 6 is an assignment from a null value.\n\nStep 2: Line 6 is reachable because there are no conditional statements or loops preventing the execution of this line.\n\nYes",
+    "sink response": "Step 1: Line 7 contains a method access upon the Java object data by invoking the toString() method.\n\nStep 2: The program line checks if data is not equal to null before invoking the toString() method. If data is null, the else block will be executed and \"data is null\" will be printed.\n\nTherefore, the line 7 does not have a null value and be dereferenced.\n\nNo",
+    "trace": [
+        [
+            66,
+            "data"
+        ],
+        [
+            69,
+            "data"
+        ],
+        [
+            70,
+            "data"
+        ],
+        [
+            71,
+            "data"
+        ],
+        [
+            106,
+            "data"
+        ]
+    ],
+    "all program size": 26,
+    "is_src": true,
+    "is_sink": false,
+    "input_token_cost": 0,
+    "output_token_cost": 0
+}

@@ -1,0 +1,21 @@
+{
+    "src code": "1  private void fooxx() throws Throwable\n2      {\n3          Integer data;\n4  \n5          \n6          data = Integer.valueOf(5);\n7  \n8          \n9          ByteArrayOutputStream streamByteArrayOutput = null;\n10          ObjectOutput outputObject = null;\n11  \n12          try\n13          {\n14              streamByteArrayOutput = new ByteArrayOutputStream() ;\n15              outputObject = new ObjectOutputStream(streamByteArrayOutput) ;\n16              outputObject.writeObject(data);\n17              byte[] dataSerialized = streamByteArrayOutput.toByteArray();\n18              CWE476_NULL_Pointer_Dereference__Integer_75b_fooxxSink(dataSerialized  );\n19          }\n20          catch (IOException exceptIO)\n21          {\n22              IO.logger.log(Level.WARNING, \"IOException in serialization\", exceptIO);\n23          }\n24          finally\n25          {\n26              \n27              try\n28              {\n29                  if (outputObject != null)\n30                  {\n31                      outputObject.close();\n32                  }\n33              }\n34              catch (IOException exceptIO)\n35              {\n36                  IO.logger.log(Level.WARNING, \"Error closing ObjectOutputStream\", exceptIO);\n37              }\n38  \n39              try\n40              {\n41                  if (streamByteArrayOutput != null)\n42                  {\n43                      streamByteArrayOutput.close();\n44                  }\n45              }\n46              catch (IOException exceptIO)\n47              {\n48                  IO.logger.log(Level.WARNING, \"Error closing ByteArrayOutputStream\", exceptIO);\n49              }\n50          }\n51      }",
+    "sink code": "",
+    "src response": "Step 1: Line 6 is an assignment from a non-null value (Integer.valueOf(5)), so data at line 6 cannot be null.\n\nNo",
+    "sink response": "",
+    "trace": [
+        [
+            93,
+            "data"
+        ],
+        [
+            262,
+            "data"
+        ]
+    ],
+    "all program size": 51,
+    "is_src": false,
+    "is_sink": false,
+    "input_token_cost": 0,
+    "output_token_cost": 0
+}

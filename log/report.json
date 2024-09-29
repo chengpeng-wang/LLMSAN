@@ -1,0 +1,24 @@
+{
+    "CWE36_Absolute_Path_Traversal__connect_tcp_14_step_by_step_1_0.0.json": [
+        [
+            [
+                [
+                    53,
+                    "data"
+                ],
+                [
+                    111,
+                    "file"
+                ],
+                [
+                    119,
+                    "streamFileInputSink"
+                ]
+            ],
+            "-------------BEGIN REPORT----------------\nThere is 1 bug(s) in the program:\n- Bug 1, [Explanation: In the file CWE36_Absolute_Path_Traversal__connect_tcp_14.java, the value of data at line 53 is data read using an outbound tcp connection, returned by readLine(), which is determined by the input data from the socket. It is then used to create a File object at line 111, making the variable file sensitive. The file path is then used to open a FileInputStream at line 119, which is sensitive data. Hence, there is an Absolute Path Traversal bug at line 119.], [Trace: (Line 53, is_sensitive(data)), (Line 111, is_sensitive(file)), (Line 119, is_sensitive(streamFileInputSink))]\n---------------END REPORT----------------",
+            true,
+            0,
+            0
+        ]
+    ]
+}

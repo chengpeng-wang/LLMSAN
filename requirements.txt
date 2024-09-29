@@ -1,0 +1,7 @@
+black
+tree-sitter
+openai
+transformers
+torch
+tiktoken
+google-generativeai

@@ -1,0 +1,21 @@
+{
+    "src code": "1  private void fooxx(HttpServletRequest request, HttpServletResponse response) throws Throwable\n2      {\n3          String data;\n4  \n5          \n6          data = \"foo\";\n7  \n8          CWE80_XSS__Servlet_URLConnection_71b_fooxxSink((Object)data , request, response );\n9      }",
+    "sink code": "",
+    "src response": "The program variable at line 6 is assigned with the value \"foo\" directly in the code. There is no indication that the value is coming from any sensitive source such as outbound tcp connection, console input, database query result, file, cookie, request parameter, string tokenizer, property file, system property, or URLConnection. Therefore, the value at line 6 is not sensitive data.\n\nNo",
+    "sink response": "",
+    "trace": [
+        [
+            101,
+            "data"
+        ],
+        [
+            103,
+            "data"
+        ]
+    ],
+    "all program size": 9,
+    "is_src": false,
+    "is_sink": false,
+    "input_token_cost": 0,
+    "output_token_cost": 0
+}

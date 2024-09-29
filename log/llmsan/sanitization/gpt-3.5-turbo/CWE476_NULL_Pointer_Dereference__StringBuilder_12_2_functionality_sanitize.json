@@ -1,0 +1,21 @@
+{
+    "src code": "1  private void fooyy() throws Throwable\n2      {\n3          StringBuilder data;\n4          if(IO.staticReturnsTrueOrFalse())\n5          {\n6              \n7              data = null;\n8          }\n9          else\n10          {\n11  \n12              \n13              data = null;\n14  \n15          }\n16  \n17          if(IO.staticReturnsTrueOrFalse())\n18          {\n19              \n20              if (data != null)\n21              {\n22                  IO.writeLine(\"\" + data.length());\n23              }\n24              else\n25              {\n26                  IO.writeLine(\"data is null\");\n27              }\n28          }\n29          else\n30          {\n31  \n32              \n33              if (data != null)\n34              {\n35                  IO.writeLine(\"\" + data.length());\n36              }\n37              else\n38              {\n39                  IO.writeLine(\"data is null\");\n40              }\n41  \n42          }\n43      }",
+    "sink code": "1  private void fooyy() throws Throwable\n2      {\n3          StringBuilder data;\n4          if(IO.staticReturnsTrueOrFalse())\n5          {\n6              \n7              data = null;\n8          }\n9          else\n10          {\n11  \n12              \n13              data = null;\n14  \n15          }\n16  \n17          if(IO.staticReturnsTrueOrFalse())\n18          {\n19              \n20              if (data != null)\n21              {\n22                  IO.writeLine(\"\" + data.length());\n23              }\n24              else\n25              {\n26                  IO.writeLine(\"data is null\");\n27              }\n28          }\n29          else\n30          {\n31  \n32              \n33              if (data != null)\n34              {\n35                  IO.writeLine(\"\" + data.length());\n36              }\n37              else\n38              {\n39                  IO.writeLine(\"data is null\");\n40              }\n41  \n42          }\n43      }",
+    "src response": "Step 1: Line 7 is an assignment from a null value.\n\nStep 2: \n- The branch condition at line 4 is determined by the static method `IO.staticReturnsTrueOrFalse()`, which may return true or false.\n- If `IO.staticReturnsTrueOrFalse()` returns true, then the execution will go to line 7 where `data` is assigned null.\n- If `IO.staticReturnsTrueOrFalse()` returns false, then the execution will go to line 13 where `data` is assigned null.\n\nTherefore, the line 7 is reachable and can be assigned null.\n\nYes",
+    "sink response": "Step 1: The program line 22 contains a method access upon the Java object `data` as `data.length()`.\n\nStep 2: The program line 22 does not check whether `data` is not equal to null before dereferencing it.\n\nTherefore, the line 22 may have a null value and be dereferenced.\n\nYes",
+    "trace": [
+        [
+            101,
+            "data"
+        ],
+        [
+            116,
+            "data"
+        ]
+    ],
+    "all program size": 86,
+    "is_src": true,
+    "is_sink": true,
+    "input_token_cost": 0,
+    "output_token_cost": 0
+}

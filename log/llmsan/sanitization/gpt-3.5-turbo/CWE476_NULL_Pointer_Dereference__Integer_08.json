@@ -1,0 +1,102 @@
+{
+    "original code": "/* TEMPLATE GENERATED TESTCASE FILE\nFilename: CWE476_NULL_Pointer_Dereference__Integer_08.java\nLabel Definition File: CWE476_NULL_Pointer_Dereference.label.xml\nTemplate File: sources-sinks-08.tmpl.java\n*/\n/*\n* @description\n* CWE: 476 Null Pointer Dereference\n* BadSource:  Set data to null\n* GoodSource: Set data to a non-null value\n* Sinks:\n*    GoodSink: add check to prevent possibility of null dereference\n*    BadSink : possibility of null dereference\n* Flow Variant: 08 Control flow: if(privateReturnsTrue()) and if(privateReturnsFalse())\n*\n* */\n\npackage testcases.CWE476_NULL_Pointer_Dereference;\n\nimport testcasesupport.*;\n\npublic class CWE476_NULL_Pointer_Dereference__Integer_08 extends AbstractTestCase\n{\n    /* The methods below always return the same value, so a tool\n     * should be able to figure out that every call to these\n     * methods will return true or return false. */\n    private boolean privateReturnsTrue()\n    {\n        return true;\n    }\n\n    private boolean privateReturnsFalse()\n    {\n        return false;\n    }\n\n    public void bad() throws Throwable\n    {\n        Integer data;\n        if (privateReturnsTrue())\n        {\n            /* POTENTIAL FLAW: data is null */\n            data = null;\n        }\n        else\n        {\n            /* INCIDENTAL: CWE 561 Dead Code, the code below will never run\n             * but ensure data is inititialized before the Sink to avoid compiler errors */\n            data = null;\n        }\n\n        if (privateReturnsTrue())\n        {\n            /* POTENTIAL FLAW: null dereference will occur if data is null */\n            IO.writeLine(\"\" + data.toString());\n        }\n    }\n\n    /* goodG2B1() - use goodsource and badsink by changing first privateReturnsTrue() to privateReturnsFalse() */\n    private void goodG2B1() throws Throwable\n    {\n        Integer data;\n        if (privateReturnsFalse())\n        {\n            /* INCIDENTAL: CWE 561 Dead Code, the code below will never run\n             * but ensure data is inititialized before the Sink to avoid compiler errors */\n            data = null;\n        }\n        else\n        {\n\n            /* FIX: hardcode data to non-null */\n            data = Integer.valueOf(5);\n\n        }\n\n        if (privateReturnsTrue())\n        {\n            /* POTENTIAL FLAW: null dereference will occur if data is null */\n            IO.writeLine(\"\" + data.toString());\n        }\n    }\n\n    /* goodG2B2() - use goodsource and badsink by reversing statements in first if */\n    private void goodG2B2() throws Throwable\n    {\n        Integer data;\n        if (privateReturnsTrue())\n        {\n            /* FIX: hardcode data to non-null */\n            data = Integer.valueOf(5);\n        }\n        else\n        {\n            /* INCIDENTAL: CWE 561 Dead Code, the code below will never run\n             * but ensure data is inititialized before the Sink to avoid compiler errors */\n            data = null;\n        }\n\n        if (privateReturnsTrue())\n        {\n            /* POTENTIAL FLAW: null dereference will occur if data is null */\n            IO.writeLine(\"\" + data.toString());\n        }\n    }\n\n    /* goodB2G1() - use badsource and goodsink by changing second privateReturnsTrue() to privateReturnsFalse() */\n    private void goodB2G1() throws Throwable\n    {\n        Integer data;\n        if (privateReturnsTrue())\n        {\n            /* POTENTIAL FLAW: data is null */\n            data = null;\n        }\n        else\n        {\n            /* INCIDENTAL: CWE 561 Dead Code, the code below will never run\n             * but ensure data is inititialized before the Sink to avoid compiler errors */\n            data = null;\n        }\n\n        if (privateReturnsFalse())\n        {\n            /* INCIDENTAL: CWE 561 Dead Code, the code below will never run */\n            IO.writeLine(\"Benign, fixed string\");\n        }\n        else\n        {\n\n            /* FIX: validate that data is non-null */\n            if (data != null)\n            {\n                IO.writeLine(\"\" + data.toString());\n            }\n            else\n            {\n                IO.writeLine(\"data is null\");\n            }\n\n        }\n    }\n\n    /* goodB2G2() - use badsource and goodsink by reversing statements in second if  */\n    private void goodB2G2() throws Throwable\n    {\n        Integer data;\n        if (privateReturnsTrue())\n        {\n            /* POTENTIAL FLAW: data is null */\n            data = null;\n        }\n        else\n        {\n            /* INCIDENTAL: CWE 561 Dead Code, the code below will never run\n             * but ensure data is inititialized before the Sink to avoid compiler errors */\n            data = null;\n        }\n\n        if (privateReturnsTrue())\n        {\n            /* FIX: validate that data is non-null */\n            if (data != null)\n            {\n                IO.writeLine(\"\" + data.toString());\n            }\n            else\n            {\n                IO.writeLine(\"data is null\");\n            }\n        }\n    }\n\n    public void good() throws Throwable\n    {\n        goodG2B1();\n        goodG2B2();\n        goodB2G1();\n        goodB2G2();\n    }\n\n    /* Below is the main(). It is only used when building this testcase on\n     * its own for testing or for building a binary to use in testing binary\n     * analysis tools. It is not used when compiling all the testcases as one\n     * application, which is how source code analysis tools are tested.\n     */\n    public static void main(String[] args) throws ClassNotFoundException,\n           InstantiationException, IllegalAccessException\n    {\n        mainFromParent(args);\n    }\n}\n",
+    "analyzed code": "1  \n2  \n3  \n4  \n5  \n6  \n7  \n8  \n9  \n10  \n11  \n12  \n13  \n14  \n15  \n16  \n17  \n18  package testcases.CWE476_NULL_Pointer_Dereference;\n19  \n20  import testcasesupport.*;\n21  \n22  public class CWE476_NULL_Pointer_Dereference__Integer_08 extends AbstractTestCase\n23  {\n24      \n25  \n26  \n27      private boolean privateReturnsTrue()\n28      {\n29          return true;\n30      }\n31  \n32      private boolean privateReturnsFalse()\n33      {\n34          return false;\n35      }\n36  \n37      public void hoo() throws Throwable\n38      {\n39          Integer data;\n40          if (privateReturnsTrue())\n41          {\n42              \n43              data = null;\n44          }\n45          else\n46          {\n47              \n48  \n49              data = null;\n50          }\n51  \n52          if (privateReturnsTrue())\n53          {\n54              \n55              IO.writeLine(\"\" + data.toString());\n56          }\n57      }\n58  \n59      \n60      private void fooxx1() throws Throwable\n61      {\n62          Integer data;\n63          if (privateReturnsFalse())\n64          {\n65              \n66  \n67              data = null;\n68          }\n69          else\n70          {\n71  \n72              \n73              data = Integer.valueOf(5);\n74  \n75          }\n76  \n77          if (privateReturnsTrue())\n78          {\n79              \n80              IO.writeLine(\"\" + data.toString());\n81          }\n82      }\n83  \n84      \n85      private void fooxx2() throws Throwable\n86      {\n87          Integer data;\n88          if (privateReturnsTrue())\n89          {\n90              \n91              data = Integer.valueOf(5);\n92          }\n93          else\n94          {\n95              \n96  \n97              data = null;\n98          }\n99  \n100          if (privateReturnsTrue())\n101          {\n102              \n103              IO.writeLine(\"\" + data.toString());\n104          }\n105      }\n106  \n107      \n108      private void fooyy1() throws Throwable\n109      {\n110          Integer data;\n111          if (privateReturnsTrue())\n112          {\n113              \n114              data = null;\n115          }\n116          else\n117          {\n118              \n119  \n120              data = null;\n121          }\n122  \n123          if (privateReturnsFalse())\n124          {\n125              \n126              IO.writeLine(\"Benign, fixed string\");\n127          }\n128          else\n129          {\n130  \n131              \n132              if (data != null)\n133              {\n134                  IO.writeLine(\"\" + data.toString());\n135              }\n136              else\n137              {\n138                  IO.writeLine(\"data is null\");\n139              }\n140  \n141          }\n142      }\n143  \n144      \n145      private void fooyy2() throws Throwable\n146      {\n147          Integer data;\n148          if (privateReturnsTrue())\n149          {\n150              \n151              data = null;\n152          }\n153          else\n154          {\n155              \n156  \n157              data = null;\n158          }\n159  \n160          if (privateReturnsTrue())\n161          {\n162              \n163              if (data != null)\n164              {\n165                  IO.writeLine(\"\" + data.toString());\n166              }\n167              else\n168              {\n169                  IO.writeLine(\"data is null\");\n170              }\n171          }\n172      }\n173  \n174      public void foo() throws Throwable\n175      {\n176          fooxx1();\n177          fooxx2();\n178          fooyy1();\n179          fooyy2();\n180      }\n181  \n182      \n183  \n184  \n185  \n186  \n187      public static void main(String[] args) throws ClassNotFoundException,\n188             InstantiationException, IllegalAccessException\n189      {\n190          mainFromParent(args);\n191      }\n192  }\n193  ",
+    "trace_check_results": [
+        {
+            "trace": [
+                [
+                    39,
+                    "data"
+                ],
+                [
+                    40,
+                    "data"
+                ],
+                [
+                    55,
+                    "data"
+                ]
+            ],
+            "result": {
+                "type_sanitize": 0,
+                "functionality_sanitize": 1,
+                "order_sanitize": 1,
+                "reachability_sanitize": 0,
+                "total": 1,
+                "final": 0
+            }
+        },
+        {
+            "trace": [
+                [
+                    67,
+                    "data"
+                ],
+                [
+                    63,
+                    "data"
+                ],
+                [
+                    80,
+                    "data"
+                ]
+            ],
+            "result": {
+                "type_sanitize": 1,
+                "functionality_sanitize": 1,
+                "order_sanitize": 0,
+                "reachability_sanitize": 0,
+                "total": 1,
+                "final": 0
+            }
+        },
+        {
+            "trace": [
+                [
+                    97,
+                    "data"
+                ],
+                [
+                    89,
+                    "data"
+                ],
+                [
+                    103,
+                    "data"
+                ]
+            ],
+            "result": {
+                "type_sanitize": 1,
+                "functionality_sanitize": 1,
+                "order_sanitize": 0,
+                "reachability_sanitize": 0,
+                "total": 1,
+                "final": 0
+            }
+        },
+        {
+            "trace": [
+                [
+                    150,
+                    "data"
+                ],
+                [
+                    148,
+                    "data"
+                ],
+                [
+                    165,
+                    "data"
+                ]
+            ],
+            "result": {
+                "type_sanitize": 0,
+                "functionality_sanitize": 0,
+                "order_sanitize": 0,
+                "reachability_sanitize": 0,
+                "total": 1,
+                "final": 0
+            }
+        }
+    ]
+}

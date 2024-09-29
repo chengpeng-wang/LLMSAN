@@ -1,0 +1,25 @@
+{
+    "src code": "1  private void fooyy() throws Throwable\n2      {\n3          Integer data;\n4  \n5          \n6          data = null;\n7  \n8          CWE476_NULL_Pointer_Dereference__Integer_71b_fooyySink((Object)data  );\n9      }",
+    "sink code": "1  private void fooyy() throws Throwable\n2      {\n3          Integer data;\n4  \n5          \n6          data = null;\n7  \n8          CWE476_NULL_Pointer_Dereference__Integer_71b_fooyySink((Object)data  );\n9      }",
+    "src response": "Step 1: Line 6 is an assignment from a null value.\n\nStep 2: The line 6 is a direct assignment of null to the variable data.\n\nYes",
+    "sink response": "Step 1: The program line 7 contains a method access upon the Java object `data`.\n\nStep 2: The program line 5 checks if `data` is not equal to null before invoking the `toString()` method on `data`.\n\nTherefore, the line 7 does not have a null value and be dereferenced.\n\nNo",
+    "trace": [
+        [
+            57,
+            "data"
+        ],
+        [
+            59,
+            "data"
+        ],
+        [
+            92,
+            "data"
+        ]
+    ],
+    "all program size": 22,
+    "is_src": true,
+    "is_sink": false,
+    "input_token_cost": 0,
+    "output_token_cost": 0
+}

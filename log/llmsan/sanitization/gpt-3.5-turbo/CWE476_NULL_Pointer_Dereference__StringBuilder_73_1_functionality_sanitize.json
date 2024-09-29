@@ -1,0 +1,25 @@
+{
+    "src code": "1  public void hoo() throws Throwable\n2      {\n3          StringBuilder data;\n4  \n5          \n6          data = null;\n7  \n8          LinkedList<StringBuilder> dataLinkedList = new LinkedList<StringBuilder>();\n9          dataLinkedList.add(0, data);\n10          dataLinkedList.add(1, data);\n11          dataLinkedList.add(2, data);\n12          CWE476_NULL_Pointer_Dereference__StringBuilder_73b_hooSink(dataLinkedList  );\n13      }",
+    "sink code": "1  public void hoo() throws Throwable\n2      {\n3          StringBuilder data;\n4  \n5          \n6          data = null;\n7  \n8          LinkedList<StringBuilder> dataLinkedList = new LinkedList<StringBuilder>();\n9          dataLinkedList.add(0, data);\n10          dataLinkedList.add(1, data);\n11          dataLinkedList.add(2, data);\n12          CWE476_NULL_Pointer_Dereference__StringBuilder_73b_hooSink(dataLinkedList  );\n13      }",
+    "src response": "Step 1: \n- Line 6 is an assignment from a null value (data = null).\n\nStep 2:\n- The branch condition of line 6 is not dependent on any condition. It is a direct assignment of null to the variable data.\n\nTherefore, data at line 6 can be null.\n\nYes",
+    "sink response": "Step 1: The program line 12 contains a method access upon a Java object, which is dataLinkedList.add(2, data).\n\nStep 2: The program line 12 does not check data and ensure it not to be equal to null. It directly adds the null value of data to the dataLinkedList.\n\nTherefore, the line 12 may have a null value and be dereferenced.\n\nYes",
+    "trace": [
+        [
+            30,
+            "data"
+        ],
+        [
+            33,
+            "data"
+        ],
+        [
+            36,
+            "data"
+        ]
+    ],
+    "all program size": 26,
+    "is_src": true,
+    "is_sink": true,
+    "input_token_cost": 0,
+    "output_token_cost": 0
+}

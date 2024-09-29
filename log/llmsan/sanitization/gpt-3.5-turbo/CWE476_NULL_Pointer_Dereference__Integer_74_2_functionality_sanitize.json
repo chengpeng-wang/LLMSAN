@@ -1,0 +1,37 @@
+{
+    "src code": "1  private void fooyy() throws Throwable\n2      {\n3          Integer data;\n4  \n5          \n6          data = null;\n7  \n8          HashMap<Integer,Integer> dataHashMap = new HashMap<Integer,Integer>();\n9          dataHashMap.put(0, data);\n10          dataHashMap.put(1, data);\n11          dataHashMap.put(2, data);\n12          CWE476_NULL_Pointer_Dereference__Integer_74b_fooyySink(dataHashMap  );\n13      }",
+    "sink code": "1  private void fooyy() throws Throwable\n2      {\n3          Integer data;\n4  \n5          \n6          data = null;\n7  \n8          HashMap<Integer,Integer> dataHashMap = new HashMap<Integer,Integer>();\n9          dataHashMap.put(0, data);\n10          dataHashMap.put(1, data);\n11          dataHashMap.put(2, data);\n12          CWE476_NULL_Pointer_Dereference__Integer_74b_fooyySink(dataHashMap  );\n13      }",
+    "src response": "Step 1: Line 6 is an assignment from a null value.\n\nStep 2: The branch condition of line 6 is not dependent on any external input or condition. It directly assigns null to the variable data.\n\nTherefore, data at line 6 can be null.\n\nYes",
+    "sink response": "Step 1: The program line 7 contains a method access upon the Java object data.\n\nStep 2: The program line 5 checks if data is not equal to null before invoking the toString method on data at line 7.\n\nTherefore, the answer is No.",
+    "trace": [
+        [
+            66,
+            "data"
+        ],
+        [
+            69,
+            "data"
+        ],
+        [
+            70,
+            "data"
+        ],
+        [
+            71,
+            "data"
+        ],
+        [
+            99,
+            "data"
+        ],
+        [
+            105,
+            "data"
+        ]
+    ],
+    "all program size": 26,
+    "is_src": true,
+    "is_sink": false,
+    "input_token_cost": 0,
+    "output_token_cost": 0
+}

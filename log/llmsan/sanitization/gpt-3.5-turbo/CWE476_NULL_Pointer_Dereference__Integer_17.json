@@ -1,0 +1,26 @@
+{
+    "original code": "/* TEMPLATE GENERATED TESTCASE FILE\nFilename: CWE476_NULL_Pointer_Dereference__Integer_17.java\nLabel Definition File: CWE476_NULL_Pointer_Dereference.label.xml\nTemplate File: sources-sinks-17.tmpl.java\n*/\n/*\n* @description\n* CWE: 476 Null Pointer Dereference\n* BadSource:  Set data to null\n* GoodSource: Set data to a non-null value\n* Sinks:\n*    GoodSink: add check to prevent possibility of null dereference\n*    BadSink : possibility of null dereference\n* Flow Variant: 17 Control flow: for loops\n*\n* */\n\npackage testcases.CWE476_NULL_Pointer_Dereference;\n\nimport testcasesupport.*;\n\npublic class CWE476_NULL_Pointer_Dereference__Integer_17 extends AbstractTestCase\n{\n    public void bad() throws Throwable\n    {\n        Integer data;\n\n        /* We need to have one source outside of a for loop in order\n         * to prevent the Java compiler from generating an error because\n         * data is uninitialized\n         */\n\n        /* POTENTIAL FLAW: data is null */\n        data = null;\n\n        for (int j = 0; j < 1; j++)\n        {\n            /* POTENTIAL FLAW: null dereference will occur if data is null */\n            IO.writeLine(\"\" + data.toString());\n        }\n    }\n\n    /* goodG2B() - use goodsource and badsink */\n    private void goodG2B() throws Throwable\n    {\n        Integer data;\n\n        /* FIX: hardcode data to non-null */\n        data = Integer.valueOf(5);\n\n        for (int j = 0; j < 1; j++)\n        {\n            /* POTENTIAL FLAW: null dereference will occur if data is null */\n            IO.writeLine(\"\" + data.toString());\n        }\n    }\n\n    /* goodB2G() - use badsource and goodsink*/\n    private void goodB2G() throws Throwable\n    {\n        Integer data;\n\n        /* POTENTIAL FLAW: data is null */\n        data = null;\n\n        for (int k = 0; k < 1; k++)\n        {\n            /* FIX: validate that data is non-null */\n            if (data != null)\n            {\n                IO.writeLine(\"\" + data.toString());\n            }\n            else\n            {\n                IO.writeLine(\"data is null\");\n            }\n        }\n    }\n\n    public void good() throws Throwable\n    {\n        goodG2B();\n        goodB2G();\n    }\n\n    /* Below is the main(). It is only used when building this testcase on\n     * its own for testing or for building a binary to use in testing binary\n     * analysis tools. It is not used when compiling all the testcases as one\n     * application, which is how source code analysis tools are tested.\n     */\n    public static void main(String[] args) throws ClassNotFoundException,\n           InstantiationException, IllegalAccessException\n    {\n        mainFromParent(args);\n    }\n}\n",
+    "analyzed code": "1  \n2  \n3  \n4  \n5  \n6  \n7  \n8  \n9  \n10  \n11  \n12  \n13  \n14  \n15  \n16  \n17  \n18  package testcases.CWE476_NULL_Pointer_Dereference;\n19  \n20  import testcasesupport.*;\n21  \n22  public class CWE476_NULL_Pointer_Dereference__Integer_17 extends AbstractTestCase\n23  {\n24      public void hoo() throws Throwable\n25      {\n26          Integer data;\n27  \n28          \n29  \n30  \n31  \n32  \n33          \n34          data = null;\n35  \n36          for (int j = 0; j < 1; j++)\n37          {\n38              \n39              IO.writeLine(\"\" + data.toString());\n40          }\n41      }\n42  \n43      \n44      private void fooxx() throws Throwable\n45      {\n46          Integer data;\n47  \n48          \n49          data = Integer.valueOf(5);\n50  \n51          for (int j = 0; j < 1; j++)\n52          {\n53              \n54              IO.writeLine(\"\" + data.toString());\n55          }\n56      }\n57  \n58      \n59      private void fooyy() throws Throwable\n60      {\n61          Integer data;\n62  \n63          \n64          data = null;\n65  \n66          for (int k = 0; k < 1; k++)\n67          {\n68              \n69              if (data != null)\n70              {\n71                  IO.writeLine(\"\" + data.toString());\n72              }\n73              else\n74              {\n75                  IO.writeLine(\"data is null\");\n76              }\n77          }\n78      }\n79  \n80      public void foo() throws Throwable\n81      {\n82          fooxx();\n83          fooyy();\n84      }\n85  \n86      \n87  \n88  \n89  \n90  \n91      public static void main(String[] args) throws ClassNotFoundException,\n92             InstantiationException, IllegalAccessException\n93      {\n94          mainFromParent(args);\n95      }\n96  }\n97  ",
+    "trace_check_results": [
+        {
+            "trace": [
+                [
+                    34,
+                    "data"
+                ],
+                [
+                    39,
+                    "data"
+                ]
+            ],
+            "result": {
+                "type_sanitize": 1,
+                "functionality_sanitize": 1,
+                "order_sanitize": 1,
+                "reachability_sanitize": 1,
+                "total": 1,
+                "final": 1
+            }
+        }
+    ]
+}
