@@ -76,7 +76,7 @@ def start_llmsan(
 
     with open(java_file, "r") as file:
         source_code = file.read()
-        new_code = delete_comments(source_code)
+        new_code = obfuscate(source_code)
         lined_new_code = add_line_numbers(new_code)
 
     total_traces = []
@@ -279,7 +279,7 @@ def start_self_check_run(
 
     with open(java_file, "r") as file:
         source_code = file.read()
-        new_code = delete_comments(source_code)
+        new_code = obfuscate(source_code)
         lined_new_code = add_line_numbers(new_code)
 
     for json_file_name in existing_json_file_names:

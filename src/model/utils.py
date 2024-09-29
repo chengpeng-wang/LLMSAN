@@ -3,7 +3,7 @@ import openai
 import google.generativeai as genai
 
 # Standard OpenAI API
-standard_keys = os.environ.get("OPENAI_API_KEY").split(":")
+standard_key = os.environ.get("OPENAI_API_KEY")
 
 # Replicate API
 os.environ["REPLICATE_API_TOKEN"] = os.environ.get("REPLICATE_API_TOKEN")

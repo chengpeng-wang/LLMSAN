@@ -60,7 +60,7 @@ class BatchRun:
             for file in files:
                 with open(root + "/" + file, "r") as support_file:
                     code_in_support_file = support_file.read()
-                    self.code_in_support_files[file] = delete_comments(code_in_support_file)
+                    self.code_in_support_files[file] = obfuscate(code_in_support_file)
         self.analysis_mode = analysis_mode
 
     def batch_transform_projects(self) -> None:
@@ -300,15 +300,8 @@ def run():
         "reachability_sanitize": args.reachability_sanitize
     }
 
-    if "gpt" in detection_model:
-        detection_key = standard_keys[0]
-    else:
-        detection_key = free_keys[0]
-
-    if "gpt" in sanitization_model:
-        sanitization_key = standard_keys[0]
-    else:
-        sanitization_key = free_keys[0]
+    detection_key = standard_key
+    sanitization_key = standard_key
 
     if args.engine == "llmsan":
         main_test_file = main_test_files[bug_type_id]

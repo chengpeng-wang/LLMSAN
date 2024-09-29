@@ -109,7 +109,7 @@ def transform_class_split_cluster_files(file_cluster: List[str]) -> None:
     return
 
 
-def delete_comments(source_code):
+def obfuscate(source_code):
     def find_nodes(
         root_node: tree_sitter.Node, node_type: str
     ) -> List[tree_sitter.Node]:
