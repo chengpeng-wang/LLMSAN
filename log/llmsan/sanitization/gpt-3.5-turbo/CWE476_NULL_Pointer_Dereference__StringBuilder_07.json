@@ -57,9 +57,9 @@
                 "type_sanitize": 1,
                 "functionality_sanitize": 1,
                 "order_sanitize": 1,
-                "reachability_sanitize": 0,
+                "reachability_sanitize": 1,
                 "total": 1,
-                "final": 0
+                "final": 1
             }
         },
         {

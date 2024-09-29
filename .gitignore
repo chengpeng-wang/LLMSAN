@@ -12,6 +12,12 @@ build/
 lib/build
 lib/vendor
 
+benchmark/Java/juliet-test-suite-APT_simplified
+benchmark/Java/juliet-test-suite-CI_simplified
+benchmark/Java/juliet-test-suite-DBZ_simplified
+benchmark/Java/juliet-test-suite-NPD_simplified
+benchmark/Java/juliet-test-suite-XSS_simplified
+
 develop-eggs/
 dist/
 downloads/

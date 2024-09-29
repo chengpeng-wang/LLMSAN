@@ -10,10 +10,10 @@
         ]
     ],
     "all program size": 21,
-    "wrong_flow_function": "fooxx2",
-    "wrong_flow_start_line_number": 89,
-    "wrong_flow_end_line_number": 95,
-    "wrong_flow_response": "Step 1: \n- The variable `data` appears in `data = null;`.\n- The variable `data` appears in `IO.writeLine(\"\" + data.length());`.\n\nStep 2:\n- The value of `data` at line 13 is `null`.\n- The value of `data` before line 19 is `new StringBuilder();`.\n\nTherefore, the value of `data` at line 13 and the value of `data` before line 19 are not the same.\n\nNo",
+    "wrong_flow_function": "",
+    "wrong_flow_start_line_number": -1,
+    "wrong_flow_end_line_number": -1,
+    "wrong_flow_response": "",
     "input_token_cost": 0,
     "output_token_cost": 0
 }
