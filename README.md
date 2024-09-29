@@ -59,13 +59,13 @@ LLMSAN is a tool for prompting-based bug detection. Equipped with the sanitizati
 
 4. Configure the keys:
     ```shell
-    export OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx >> ~/.bashrc
+    export OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
     ```
 
     Similarly, the other two keys can be set as follows:
     ```shell
-    export REPLICATE_API_TOKEN=xxxxxx >> ~/.bashrc
-    export GEMINI_KEY=xxxxxx >> ~/.bashrc
+    export REPLICATE_API_TOKEN=xxxxxx
+    export GEMINI_KEY=xxxxxx
     ```
 
 ## Quick Start
@@ -75,8 +75,8 @@ LLMSAN is a tool for prompting-based bug detection. Equipped with the sanitizati
     We can run the following commands to detect the XSS bug in the file `CWE80_XSS__CWE182_Servlet_database_66.java` as a demo.
 
     ```shell
-    cd src && source ~/.bashrc
-    python3 batchrun.py \
+    cd src
+    python batchrun.py \
         --bug-type=xss \
         --detection-model=gpt-3.5-turbo \
         --sanitization-model=gpt-3.5-turbo \
@@ -97,7 +97,7 @@ LLMSAN is a tool for prompting-based bug detection. Equipped with the sanitizati
 
     ```shell
     cd log
-    python3 batchreport.py \
+    python batchreport.py \
         --bug-type=xss \
         --detection-model=gpt-3.5-turbo \
         --sanitization-model=gpt-3.5-turbo \
@@ -120,7 +120,7 @@ LLMSAN is a tool for prompting-based bug detection. Equipped with the sanitizati
     }
     ```
 
-    The values of "xxx_sanitize" indicate whether the data-flow path violate the syntactic or semantic properties. If the value is 1, the property is not violated. If the value of "final" is 1, the bug report is recognized as true bug as all the sanitizers do not discover any violations.
+    The values of "xxx_sanitize" indicate whether the data-flow path violates any syntactic or semantic property. If the value is 1, the property is not violated. If the value of "final" is 1, the bug report is recognized as true bug as all the sanitizers do not discover any violations.
 
   
 2. Analyze a demo case using baselines
@@ -128,8 +128,8 @@ LLMSAN is a tool for prompting-based bug detection. Equipped with the sanitizati
     You can execute the following commands to run the baseline SC-CoT-Check upon the file `CWE80_XSS__CWE182_Servlet_database_66.java` as a demo, where `self-consistency-k` is set to 5 and the temperature is 0.5.
 
     ```shell
-    cd src && source ~/.bashrc
-    python3 batchrun.py \
+    cd src
+    python batchrun.py \
         --bug-type=xss \
         --detection-model=gpt-3.5-turbo \
         --sanitization-model=gpt-3.5-turbo \
@@ -147,7 +147,7 @@ LLMSAN is a tool for prompting-based bug detection. Equipped with the sanitizati
 
     ```shell
     cd log
-    python3 batchreport.py \
+    python batchreport.py \
         --bug-type=xss \
         --detection-model=gpt-3.5-turbo \
         --sanitization-model=gpt-3.5-turbo \
@@ -185,7 +185,7 @@ To avoid the leakage of ground truth to LLMs, we obfuscate the code in the Julie
 
 ## More Programming Languages
 
-LLMSAN is language-agnostic. To migrate the current implementations to other programming languages or extract more syntactic facts, please refer to the grammar files in the corresponding Tree-sitter libraries and refactor the code in `sanitizer/analyzer.py`. Basically, you only need to change the node types when invoking `find_nodes_by_type`.
+LLMSAN is language-agnostic. To migrate the current implementations to other programming languages or extract more syntactic facts, please refer to the grammar files in the corresponding Tree-sitter libraries and refactor the code in `sanitizer/analyzer.py`. Basically, you only need to change the node types when invoking `find_nodes`.
 
 Here are the links to grammar files in Tree-sitter libraries targeting mainstream programming languages:
 
